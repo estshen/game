@@ -116,7 +116,7 @@ function draw()
     if(flagpole.isReached == true)
     {
         fill(255);
-        textSie(25);
+        textSize(25);
         textAlign(CENTER);
         text("Level complete. Press space to continue.", width/2, height/2);
         return;
