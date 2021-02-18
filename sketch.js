@@ -31,7 +31,229 @@ var lives;
 function setup()
 {
 	createCanvas(1024, 576);
+    
 	floorPos_y = height * 3/4;
+    lives = 3;
+    startGame();  
+}
+
+function draw()
+{
+	background(100, 155, 255); // fill the sky blue
+
+	noStroke();
+	fill(0,155,0);
+	rect(0, floorPos_y, width, height/4); // draw some green ground
+
+    push();
+    translate(scrollPos, 0);
+    
+	// Draw clouds.
+
+    drawClouds();
+    
+	// Draw mountains.
+    
+    drawMountains();
+
+	// Draw trees.
+    
+    drawTrees();
+    
+	// Draw canyons.
+        
+    for(var i = 0; i < canyons.length; i++)
+    {
+        drawCanyon(canyons[i]);
+        checkCanyon(canyons[i]);
+    }
+
+	// Draw collectable items.
+    
+    for(var i = 0; i < collectables.length; i++)
+    {
+        if(!collectables[i].isFound)
+        {
+            drawCollectable(collectables[i]);
+            checkCollectable(collectables[i]);
+        }
+//        if(collectables[i].isFound == false)
+//        {
+//            drawCollectable(collectables[i]);
+//            checkCollectable(collectables[i]);
+//        }
+//        else if (collectables[i].isFound == true)
+//        {
+//            
+//        }
+    }
+
+    renderFlagpole();
+    
+    pop();
+    
+	// Draw game character.
+	
+	drawGameChar();
+    
+    
+    // Draw "game over" when gameChar dies
+    
+    if(lives < 1)
+    {
+        fill(231, 111, 81);
+        textSize(25);
+        text("Game over. Press space to continue.", width/2, height/2);
+        return;
+    }
+    
+    // Draw "level complete" when the flagpole is reached
+
+    if(flagpole.isReached == true)
+    {
+        fill(231, 111, 81);
+        textSize(25);
+        text("Level complete. Press space to continue.", width/2, height/2);
+        return;
+    }
+    
+    //Draw game score
+    
+    fill(255);
+    noStroke();
+    textSize(20);
+    text("Score: " + game_score, 20, 30);
+    
+    //Draw lives
+    
+    fill(255);
+    noStroke();
+    textSize(20);
+    text("Lives: " + lives, 140, 30);
+    
+
+	// Logic to make the game character move or the background scroll.
+    
+	if(isLeft)
+	{
+		if(gameChar_x > width * 0.2)
+		{
+			gameChar_x -= 5;
+		}
+		else
+		{
+			scrollPos += 5;
+		}
+	}
+
+	if(isRight)
+	{
+		if(gameChar_x < width * 0.8)
+		{
+			gameChar_x  += 5;
+		}
+		else
+		{
+			scrollPos -= 5; // negative for moving against the background
+		}
+	}
+
+
+	// Logic to make the game character rise and fall.
+
+    if(isFalling == true && gameChar_y < floorPos_y)
+    {
+        gameChar_y -= 5 ;
+    }
+    else if(isFalling == false && gameChar_y < floorPos_y)
+    {
+        gameChar_y += 10;
+    }
+    
+    // Check if gameChar reached the flagpole
+    
+    if(flagpole.isReached == false)
+    {
+        checkFlagpole();
+    }
+    
+    // Reset gameChar's position when it falls
+    checkPlayerDie();
+    
+	// Update real position of gameChar for collision detection.
+	gameChar_world_x = gameChar_x - scrollPos;
+}
+
+
+// ---------------------
+// Key control functions
+// ---------------------
+
+function keyPressed()
+{
+
+    if(keyCode == 37)
+        {
+            console.log("left arrow");
+            isLeft = true;
+        }
+    else if(keyCode == 39)
+        {
+            console.log("right arrow");
+            isRight = true;
+        }
+    
+    //jumping
+    if(keyCode == 32 && gameChar_y >= floorPos_y)
+        {
+            console.log("space-bar");
+            gameChar_y -= 100;
+            isFalling = true;
+        } 
+    
+    
+    if(keyCode == 32 && flagpole.isReached == true)
+    {
+        startGame();
+    }
+    
+    if(keyCode == 32 && lives <= 0)
+    {
+        startGame();
+        lives = 3;
+    }
+}
+
+function keyReleased()
+{
+	console.log("release" + keyCode);
+	console.log("release" + key);
+
+    if(keyCode == 37)
+        {
+            console.log("left arrow");
+            isLeft = false;
+        }
+    else if(keyCode == 39)
+        {
+            console.log("right arrow");
+            isRight = false;
+        }
+    
+    //jumping
+    else if(keyCode == 32)
+        {
+            console.log("space-bar");
+            isFalling = false;
+        }
+}
+
+// ------------------------------
+// Game start function
+// ------------------------------
+
+function startGame()
+{
 	gameChar_x = width/2;
 	gameChar_y = floorPos_y;
 
@@ -103,194 +325,21 @@ function setup()
     game_score = 0; 
     
     flagpole = {isReached: false, x_pos: 1500};
-    
-    lives = 3;
 }
 
-function draw()
+
+function checkPlayerDie()
 {
-	background(100, 155, 255); // fill the sky blue
-
-	noStroke();
-	fill(0,155,0);
-	rect(0, floorPos_y, width, height/4); // draw some green ground
-
-    push();
-    translate(scrollPos, 0);
-    
-	// Draw clouds.
-
-    drawClouds();
-    
-	// Draw mountains.
-    
-    drawMountains();
-
-	// Draw trees.
-    
-    drawTrees();
-    
-	// Draw canyons.
-        
-    for(var i = 0; i < canyons.length; i++)
+    if (gameChar_y - 20 > height)
     {
-        drawCanyon(canyons[i]);
-        checkCanyon(canyons[i]);
-    }
-
-	// Draw collectable items.
-    for(var i = 0; i < collectables.length; i++)
-    {
-        if(!collectables[i].isFound)
+        lives -= 1;
+        if(lives > 0)
+   
         {
-            drawCollectable(collectables[i]);
-            checkCollectable(collectables[i]);
+            startGame();
         }
-//        if(collectables[i].isFound == false)
-//        {
-//            drawCollectable(collectables[i]);
-//            checkCollectable(collectables[i]);
-//        }
-//        else if (collectables[i].isFound == true)
-//        {
-//            
-//        }
     }
-
-    renderFlagpole();
-    
-    pop();
-    
-	// Draw game character.
-	
-	drawGameChar();
-    
-    //Draw game score
-    
-    fill(255);
-    noStroke();
-    textSize(20);
-    text("score: " + game_score, 20, 30);
-    
-    //Draw lives
-    
-    fill(255);
-    noStroke();
-    textSize(20);
-    text("Lives: " + lives, 140, 30);
-    
-
-	// Logic to make the game character move or the background scroll.
-	if(isLeft)
-	{
-		if(gameChar_x > width * 0.2)
-		{
-			gameChar_x -= 5;
-		}
-		else
-		{
-			scrollPos += 5;
-		}
-	}
-
-	if(isRight)
-	{
-		if(gameChar_x < width * 0.8)
-		{
-			gameChar_x  += 5;
-		}
-		else
-		{
-			scrollPos -= 5; // negative for moving against the background
-		}
-	}
-
-    // Flagpole reached
-
-    if(flagpole.isReached == true)
-    {
-        fill(255);
-        noStroke();
-        text("Level complete. Press space to continue.", width/2, height/2);
-        return;
-    }
-    
-    
-	// Logic to make the game character rise and fall.
-
-    if(isFalling == true && gameChar_y < floorPos_y)
-    {
-        gameChar_y -= 5 ;
-    }
-    else if(isFalling == false && gameChar_y < floorPos_y)
-    {
-        gameChar_y += 10;
-    }
-    
-    // Check if gameChar reached the flagpole
-    if(flagpole.isReached == false)
-    {
-        checkFlagpole();
-    }
-    
-	// Update real position of gameChar for collision detection.
-	gameChar_world_x = gameChar_x - scrollPos;
 }
-
-
-// ---------------------
-// Key control functions
-// ---------------------
-
-function keyPressed()
-{
-
-    if(keyCode == 37)
-        {
-            console.log("left arrow");
-            isLeft = true;
-        }
-    else if(keyCode == 39)
-        {
-            console.log("right arrow");
-            isRight = true;
-        }
-    
-    //jumping
-    if(keyCode == 32 && gameChar_y >= floorPos_y)
-        {
-            console.log("space-bar");
-            gameChar_y -= 100;
-            isFalling = true;
-        } 
-}
-
-function keyReleased()
-{
-	console.log("release" + keyCode);
-	console.log("release" + key);
-
-    if(keyCode == 37)
-        {
-            console.log("left arrow");
-            isLeft = false;
-        }
-    else if(keyCode == 39)
-        {
-            console.log("right arrow");
-            isRight = false;
-        }
-    
-    //jumping
-    else if(keyCode == 32)
-        {
-            console.log("space-bar");
-            isFalling = false;
-        }
-
-    
-}
-
 
 // ------------------------------
 // Game character render function
@@ -538,6 +587,11 @@ function checkCanyon(t_canyon)
     
 }
 
+
+// ----------------------------------
+// Flagpole render and check functions
+// ----------------------------------
+
 function renderFlagpole()
 {
     push(); 
@@ -576,6 +630,7 @@ function checkFlagpole()
     
 }
 
+
 // ----------------------------------
 // Collectable items render and check functions
 // ----------------------------------
@@ -597,7 +652,6 @@ function drawCollectable(t_collectable)
         textStyle(BOLD);
         fill(109, 104, 117);
         text('B', t_collectable.x_pos - 9*t_collectable.size/50, t_collectable.y_pos + 8*t_collectable.size/50);
-
 }
 
 // Function to check character has collected an item.
