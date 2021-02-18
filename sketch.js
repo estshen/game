@@ -101,13 +101,9 @@ function draw()
     
     if(lives < 1)
     {
-        fill(255);
+        fill(231, 111, 81);
         textSize(25);
-        textAlign(CENTER);
         text("Game over. Press space to continue.", width/2, height/2);
-//        // set back to normal size and left alignment
-//        textSize(20);
-//        textAlign(LEFT);
         return;
     }
     
@@ -115,9 +111,8 @@ function draw()
 
     if(flagpole.isReached == true)
     {
-        fill(255);
+        fill(231, 111, 81);
         textSize(25);
-        textAlign(CENTER);
         text("Level complete. Press space to continue.", width/2, height/2);
         return;
     }
@@ -182,7 +177,7 @@ function draw()
         checkFlagpole();
     }
     
-    // Rest gameChar's position when it falls
+    // Reset gameChar's position when it falls
     checkPlayerDie();
     
 	// Update real position of gameChar for collision detection.
