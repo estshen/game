@@ -1,6 +1,10 @@
 /*
 
-The Game Project 5 - Bring it all together
+- Copy your game project code into this file
+- for the p5.Sound library look here https://p5js.org/reference/#/libraries/p5.sound
+- for finding cool sounds perhaps look here
+https://freesound.org/
+
 
 */
 
@@ -28,14 +32,27 @@ var flagpole;
 var lives;
 
 
+var jumpSound;
+
+function preload()
+{
+    soundFormats('mp3','wav');
+    
+    //load your sounds here
+    jumpSound = loadSound('assets/jump.wav');
+    jumpSound.setVolume(0.1);
+}
+
+
 function setup()
 {
 	createCanvas(1024, 576);
-    
-	floorPos_y = height * 3/4;
+
+    floorPos_y = height * 3/4;
     lives = 3;
     startGame();  
 }
+
 
 function draw()
 {
@@ -194,21 +211,22 @@ function keyPressed()
 
     if(keyCode == 37)
         {
-            console.log("left arrow");
+            //console.log("left arrow");
             isLeft = true;
         }
     else if(keyCode == 39)
         {
-            console.log("right arrow");
+            //console.log("right arrow");
             isRight = true;
         }
     
     //jumping
     if(keyCode == 32 && gameChar_y >= floorPos_y)
         {
-            console.log("space-bar");
+            //console.log("space-bar");
             gameChar_y -= 100;
             isFalling = true;
+            jumpSound.play();
         } 
     
     
@@ -666,3 +684,4 @@ function checkCollectable(t_collectable)
         game_score += 1;
     }
 }
+
