@@ -32,6 +32,7 @@ var flagpole;
 var lives;
 
 var platforms;
+var enemies;
 
 var jumpSound;
 var fallSound;
@@ -386,11 +387,14 @@ function startGame()
     platforms = [];
     
     platforms.push(createPlatforms(100,floorPos_y - 100,100));
-    platforms.push(createPlatforms(400, floorPos_y - 100, 200))
+    platforms.push(createPlatforms(400, floorPos_y - 100, 200));
     
     game_score = 0; 
     
     flagpole = {isReached: false, x_pos: 1500};
+
+    enemies = [];
+    enemies.push(new Enemy(100, floorPos_y - 10, 100, 100))
 }
 
 
@@ -761,4 +765,42 @@ function createPlatforms(x, y, length)
         }
     }
     return p;
+}
+
+function Enemy(x, y, range)
+{
+    this.x = x;
+    this.y = y;
+    this.range = range;
+
+    this.currentX = x;
+    //inc is increment
+    this.inc = 1;
+
+    this.update = function()
+    {
+        this.currentX += this.inc;
+
+        if(this.currentX >= this.x + this.range)
+        {
+            this.inc = -1;
+        }
+        //make enemy to move back the other way
+        else if(this.currentX <= this.x)
+        {
+            this.inc = 1;
+        }
+    }
+
+    this.draw = function()
+    {
+        this.update();
+        fill(255,0,0)
+        ellipse(this.x, this.y, 20, 20);
+    }
+
+    this.checkContact = function()
+    {
+
+    }
 }
