@@ -1,66 +1,47 @@
-### The Game Project 6 – Adding game mechanics
+OVERVIEW
+The final stage of your game project is to make your game awesome. 
 
-This week’s project builds upon the sketch from last week. Before
-starting this project make sure you have completed all steps from last
-week and tested your game thoroughly.
+Extensions
+Complete two out of four possible extensions shown below.
 
-Create a copy of your sketch directory from last week and rename it to
-something like `game-project-6`. Keep your completed project from last
-week safe as a reference, and make the following changes to the code
-in your new game directory.
+Add advanced graphics
+Make your graphics as pretty as possible. We don't think you need tutorials for this.
 
+2. Add sound
 
-1. Add a score counter [1 marks]
-	- create a global variable called `game_score`
-	- increment `game_score` by one each time the character collects an item.
-	- use the text function to draw the score on the screen.
+Use p5.sound to add sound effects to your game. Watch the tutorial video from the topic to do this.
 
-2. Add a flagpole [1 marks]
-	- We need to add an end to your level. I have chosen a flagpole but you can chose according to the theme of your game.
-	- Initialise an object called `flagpole`, it should at least have the properties `x_pos` and `isReached`.
-	- set `isReached` to `false` and `x_pos` to a world position at the very end of your level.
-	- create a function called `renderFlagpole` and call this from the draw function
-	- complete the function to draw your flagpole in two states. One for when `isReached` is false,
-	and one for when it is `true`
+3. Create platforms
 
-3. Flagpole checking function [1 marks]
-	- create a function called `checkFlagpole`
-	- call the function from `draw`, but write a conditional so that `checkFlagpole` is only called when `flagpole.isReached` is `false`
-	- in `checkFlagpole` write a conditional such that when the gameChar is in range of the flagpole
-	its `isReached` property is set to `true`
+Use the factory pattern to create platforms. Watch the tutorial video from the topic to do this.
 
-4. Add lives [2 marks]
-	- Your character should begin with three lives, and each time they fall down a canyon the game
-	 should reset and their remaining lives decrement by one.
-	- Create a global variable `lives`, and initialise it to `3` within `setup`.
-	- Create a function called `checkPlayerDie`. Call this within draw.
-	- In this function define a conditional statement that tests if your character has fallen below
-	the bottom of the canvas. When this is `true`, decrement the `lives` counter by one
-	- Create a new function called `startGame()`.
-	- Move everything from `setup` except `createCanvas` and the initialisation of `floorPos_y` and
-	`lives` into this new function.
-	- At the end of your now very short `setup` function call `startGame()`.
-	- In `checkPlayerDie` create a conditional statement to test if the player has
-	used all of their lives. If there are lives remaining call `startGame`.
-	- Write some code using a `for` loop to draw life tokens onto the screen so that you
-	can keep track of how many lives you have remaining.
+4. Create enemies
 
-5. "Game over" and "Level complete" text [2 marks]
-	- In the draw loop, after your drawing code and before your game logic
-	code, write two conditional statements
-	- The first displays "Game over. Press space to continue."
-	when `lives` is less than 1.
-	- The other displays "Level complete. Press space to continue." when
-	`flagpole.isReached` is true
-	- For each conditional you should return at the end of the statement. This
-	prevents any further game logic from happening when play is over.
+Use a constructor function to create enemies. Watch the tutorial video from the topic to do this.
+
+Make your code awesome
+Secondly, review your code and make sure it is awesome. This means:
+
+1 Make sure your code is well formatted. If you're unsure how to do this, then rewatch the code philosophy video "The elegant coder".
+2 Make sure that you have used variables, objects and functions well. The code philosophy lecture, "The elegant coder" can also provide help for this area.
+3 Make sure your code works as well as can be. Iron out those bugs. Code philosophy videos "The debugger's mindset" and "Testing" will help you in your approach to this.
+
+Deliverables
+Hand in your final game project as a zipped folder containing:
+
+1 your final game project code
+2 all assets needed to run the code (html files, library files, images, sound files etc).
+
+For each of your two extensions, write a comment of around 150 words at the top of your code explaining:
+
+1 your extension
+2 the bits you found difficult
+3 the skills you learnt/practised by implementing it.
 
 
-	6. Tidy your code [3 marks]
-	- make sure your code is elegant
-		- remove all commented blocks of code
-		- check all indentations
-		- make your variable names consistent
-		- remove any redundant code
-		- refactor unwieldy drawing code
-		- break up long commands onto multiple lines
+REVIEW CRITERIA
+Code formatting - 20%
+Use of variables, objects and functions - 20%
+Does it work? - 20%
+Extension 1 - 20%
+Extension 2 - 20%

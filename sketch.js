@@ -31,8 +31,13 @@ var game_score;
 var flagpole;
 var lives;
 
+var platforms;
 
 var jumpSound;
+var fallSound;
+var coinSound;
+var flagpoleSound;
+var backgroundMusic;
 
 function preload()
 {
@@ -64,7 +69,8 @@ function draw()
 
     push();
     translate(scrollPos, 0);
-    
+
+  
 	// Draw clouds.
 
     drawClouds();
@@ -105,10 +111,20 @@ function draw()
 //        }
     }
 
+    //Draw platforms.
+
+    for(var i = 0; i < platforms.length; i++)
+    {
+        platforms[i].draw();
+    }
+        
+
     renderFlagpole();
     
     pop();
-    
+
+
+
 	// Draw game character.
 	
 	drawGameChar();
@@ -147,6 +163,8 @@ function draw()
     noStroke();
     textSize(20);
     text("Lives: " + lives, 140, 30);
+
+
     
 
 	// Logic to make the game character move or the background scroll.
@@ -178,14 +196,39 @@ function draw()
 
 	// Logic to make the game character rise and fall.
 
-    if(isFalling == true && gameChar_y < floorPos_y)
+    if(gameChar_y < floorPos_y)
     {
-        gameChar_y -= 5 ;
+        var isContact = false;  
+        for(var i = 0; i < platforms.length; i++)
+        {
+            if(platforms[i].checkContact(gameChar_world_x, gameChar_y) == true)
+            {
+                isContact = true;
+                break;     
+            }
+        }
+        if(isContact == false)
+        {
+            gameChar_y += 2;
+            isFalling = true;
+        }
     }
-    else if(isFalling == false && gameChar_y < floorPos_y)
+    else
+    {
+        isFalling = false;
+    }
+    if(isPlummeting)
     {
         gameChar_y += 10;
     }
+    // if(isFalling == true && gameChar_y < floorPos_y)
+    // {
+    //     gameChar_y -= 5 ;
+    // }
+    // else if(isFalling == false && gameChar_y < floorPos_y)
+    // {
+    //     gameChar_y += 10;
+    // }
     
     // Check if gameChar reached the flagpole
     
@@ -340,6 +383,11 @@ function startGame()
         {x_pos: 5100, y_pos: floorPos_y - 40, size: 50, isFound: false}
     ];
     
+    platforms = [];
+    
+    platforms.push(createPlatforms(100,floorPos_y - 100,100));
+    platforms.push(createPlatforms(400, floorPos_y - 100, 200))
+    
     game_score = 0; 
     
     flagpole = {isReached: false, x_pos: 1500};
@@ -477,6 +525,7 @@ function drawGameChar()
 // ---------------------------
 // Background render functions
 // ---------------------------
+
 
 // Function to draw cloud objects.
 
@@ -685,3 +734,31 @@ function checkCollectable(t_collectable)
     }
 }
 
+
+function createPlatforms(x, y, length)
+{
+    var p = 
+    {
+        x: x,
+        y: y,
+        length: length,
+        draw: function()
+        {
+            fill(255,0,255);
+            rect(this.x, this.y, this.length, 20);
+        },
+        checkContact: function(gc_x, gc_y)
+        {
+            if(gc_x > this.x && gc_x < this.x + this.length)
+            {
+                var d = this.y - gc_y;
+                if( d >= 0 && d < 5)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+    }
+    return p;
+}
