@@ -120,6 +120,23 @@ function draw()
         
 
     renderFlagpole();
+
+    for(var i = 0; i < enemies.length; i++)
+    {
+        enemies[i].draw();
+
+        //check if in contact with the enemy
+        var isContact = enemies[i].checkContact(gameChar_world_x, gameChar_y);
+
+        if(isContact == true)
+        {
+            if(lives > 0)
+            {
+                startGame();
+                break;
+            }
+        }
+    }
     
     pop();
 
@@ -761,4 +778,51 @@ function createPlatforms(x, y, length)
         }
     }
     return p;
+<<<<<<< Updated upstream
+=======
+}
+
+function Enemy(x, y, range)
+{
+    this.x = x;
+    this.y = y;
+    this.range = range;
+
+    this.currentX = x;
+    //inc is increment
+    this.inc = 1;
+
+    this.update = function()
+    {
+        this.currentX += this.inc;
+
+        if(this.currentX >= this.x + this.range)
+        {
+            this.inc = -1;
+        }
+        //make enemy to move back the other way
+        else if(this.currentX <= this.x)
+        {
+            this.inc = 1;
+        }
+    }
+
+    this.draw = function()
+    {
+        this.update();
+        fill(255,0,0);
+        ellipse(this.currentX, this.y, 20, 20);
+    }
+
+    this.checkContact = function(gc_x, gc_y)
+    {
+        var d = dist(gc_x, gc_y, this.currentX, this.y)
+
+        if(d < 20)
+        {
+            return true;
+        }
+        return false;
+    }
+>>>>>>> Stashed changes
 }
