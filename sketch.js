@@ -38,6 +38,9 @@ var jumpSound;
 var fallSound;
 var coinSound;
 var flagpoleSound;
+// var overSound;
+var enemySound;
+
 var backgroundMusic;
 
 function preload()
@@ -48,7 +51,18 @@ function preload()
     jumpSound = loadSound('assets/jump.wav');
     jumpSound.setVolume(0.5);
 
+    fallSound = loadSound('assets/fall.mp3');
+    fallSound.setVolume(0.3);
 
+    coinSound = loadSound('assets/coin.wav');
+
+    flagpoleSound = loadSound('assets/flagpole.wav');
+
+    enemySound = loadSound('assets/enemy.wav');
+
+    // overSound = loadSound('assets/game-over.wav');
+
+    backgroundMusic = loadSound('assets/background.mp3');
 
 
 }
@@ -139,10 +153,13 @@ function draw()
 
         if(isContact == true)
         {
+            enemySound.play();
+
             if(lives > 0)
             {
                 startGame();
                 break;
+
             }
         }
     }
@@ -165,6 +182,7 @@ function draw()
         textSize(25);
         text("Game over. Press space to continue.", width/2, height/2);
         return;
+
     }
     
     // Draw "level complete" when the flagpole is reached
@@ -247,6 +265,8 @@ function draw()
     if(isPlummeting)
     {
         gameChar_y += 10;
+        fallSound.play();
+
     }
     // if(isFalling == true && gameChar_y < floorPos_y)
     // {
@@ -257,6 +277,10 @@ function draw()
     //     gameChar_y += 10;
     // }
     
+
+
+
+
     // Check if gameChar reached the flagpole
     
     if(flagpole.isReached == false)
@@ -411,13 +435,19 @@ function startGame()
     ];
     
     platforms = [];
-    
-    platforms.push(createPlatforms(100,floorPos_y - 100,100));
-    platforms.push(createPlatforms(400, floorPos_y - 100, 200));
+    for(var i = 0; i < 5; i++)
+    { 
+        platforms.push(createPlatforms(100, floorPos_y - 85, 100));
+        platforms.push(createPlatforms(1250, floorPos_y - 100, 100));
+        platforms.push(createPlatforms(500, floorPos_y - 100, 100));
+        platforms.push(createPlatforms(1750, floorPos_y - 95, 100));
+        platforms.push(createPlatforms(1900, floorPos_y - 105, 100));
+        platforms.push(createPlatforms(2200, floorPos_y - 100, 100));
+    }
     
     game_score = 0; 
     
-    flagpole = {isReached: false, x_pos: 1500};
+    flagpole = {isReached: false, x_pos: 2800};
 
     enemies = [];
     enemies.push(new Enemy(100, floorPos_y - 10, 100, 100));
@@ -723,6 +753,7 @@ function checkFlagpole()
     if(d < 15)
     {
         flagpole.isReached = true;
+        flagpoleSound.play();
     }
     
 }
@@ -759,6 +790,7 @@ function checkCollectable(t_collectable)
     if(dist(gameChar_world_x, gameChar_y, t_collectable.x_pos, t_collectable.y_pos) < 50)
     {
         t_collectable.isFound = true;
+        coinSound.play();
         console.log('yay');
         game_score += 1;
     }
@@ -837,6 +869,7 @@ function Enemy(x, y, range)
         if(d < 20)
         {
             return true;
+
         }
         return false;
     }
