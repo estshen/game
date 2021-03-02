@@ -435,15 +435,13 @@ function startGame()
     ];
     
     platforms = [];
-    for(var i = 0; i < 5; i++)
-    { 
-        platforms.push(createPlatforms(100, floorPos_y - 85, 100));
-        platforms.push(createPlatforms(1250, floorPos_y - 100, 100));
-        platforms.push(createPlatforms(500, floorPos_y - 100, 100));
-        platforms.push(createPlatforms(1750, floorPos_y - 95, 100));
-        platforms.push(createPlatforms(1900, floorPos_y - 105, 100));
-        platforms.push(createPlatforms(2200, floorPos_y - 100, 100));
-    }
+    platforms.push(createPlatforms(100, floorPos_y - 85, 90));
+    platforms.push(createPlatforms(500, floorPos_y - 100, 100));
+    platforms.push(createPlatforms(1250, floorPos_y - 100, 100));
+    platforms.push(createPlatforms(1750, floorPos_y - 95, 100));
+    platforms.push(createPlatforms(1900, floorPos_y - 105, 80));
+    platforms.push(createPlatforms(2200, floorPos_y - 100, 100));
+
     
     game_score = 0; 
     
