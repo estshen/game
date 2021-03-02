@@ -32,6 +32,7 @@ var flagpole;
 var lives;
 
 var platforms;
+var enemies;
 
 var jumpSound;
 var fallSound;
@@ -121,6 +122,10 @@ function draw()
 
     renderFlagpole();
 
+
+
+    //Draw enemies
+
     for(var i = 0; i < enemies.length; i++)
     {
         enemies[i].draw();
@@ -137,6 +142,7 @@ function draw()
             }
         }
     }
+
     
     pop();
 
@@ -403,11 +409,14 @@ function startGame()
     platforms = [];
     
     platforms.push(createPlatforms(100,floorPos_y - 100,100));
-    platforms.push(createPlatforms(400, floorPos_y - 100, 200))
+    platforms.push(createPlatforms(400, floorPos_y - 100, 200));
     
     game_score = 0; 
     
     flagpole = {isReached: false, x_pos: 1500};
+
+    enemies = [];
+    enemies.push(new Enemy(100, floorPos_y - 10, 100, 100));
 }
 
 
@@ -778,8 +787,8 @@ function createPlatforms(x, y, length)
         }
     }
     return p;
-<<<<<<< Updated upstream
-=======
+
+  
 }
 
 function Enemy(x, y, range)
@@ -796,6 +805,7 @@ function Enemy(x, y, range)
     {
         this.currentX += this.inc;
 
+        //make enemy move
         if(this.currentX >= this.x + this.range)
         {
             this.inc = -1;
@@ -810,7 +820,9 @@ function Enemy(x, y, range)
     this.draw = function()
     {
         this.update();
+
         fill(255,0,0);
+
         ellipse(this.currentX, this.y, 20, 20);
     }
 
@@ -824,5 +836,5 @@ function Enemy(x, y, range)
         }
         return false;
     }
->>>>>>> Stashed changes
+
 }
