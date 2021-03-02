@@ -45,8 +45,10 @@ function preload()
     soundFormats('mp3','wav');
     
     //load your sounds here
-    jumpSound = loadSound('assets/jump.wav');
+    jumpSound = loadSound('assets/jump.mp3');
     jumpSound.setVolume(0.1);
+
+
 }
 
 
