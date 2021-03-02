@@ -121,6 +121,26 @@ function draw()
         
 
     renderFlagpole();
+
+
+    //Draw enemies
+    for(var i = 0; i < enemies.length; i++)
+    {
+        enemies[i].draw();
+
+        //check if in contact with the enemy
+        var isContact = enemies[i].checkContact(gameChar_world_x, gameChar_y);
+
+        if(isContact == true)
+        {
+            if(lives > 0)
+            {
+                startGame();
+                break;
+            }
+        }
+    }
+
     
     pop();
 
@@ -394,7 +414,7 @@ function startGame()
     flagpole = {isReached: false, x_pos: 1500};
 
     enemies = [];
-    enemies.push(new Enemy(100, floorPos_y - 10, 100, 100))
+    enemies.push(new Enemy(100, floorPos_y - 10, 100, 100));
 }
 
 
@@ -780,7 +800,7 @@ function Enemy(x, y, range)
     this.update = function()
     {
         this.currentX += this.inc;
-
+        //make enemy move
         if(this.currentX >= this.x + this.range)
         {
             this.inc = -1;
@@ -796,11 +816,17 @@ function Enemy(x, y, range)
     {
         this.update();
         fill(255,0,0)
-        ellipse(this.x, this.y, 20, 20);
+        ellipse(this.currentX, this.y, 20, 20);
     }
 
-    this.checkContact = function()
+    this.checkContact = function(gc_x, gc_y)
     {
+        var d = dist(gc_x, gc_y, this.currentX, this.y)
 
+        if(d < 20)
+        {
+            return true;
+        }
+        return false;
     }
 }
