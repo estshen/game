@@ -123,7 +123,9 @@ function draw()
     renderFlagpole();
 
 
+
     //Draw enemies
+
     for(var i = 0; i < enemies.length; i++)
     {
         enemies[i].draw();
@@ -785,6 +787,8 @@ function createPlatforms(x, y, length)
         }
     }
     return p;
+
+  
 }
 
 function Enemy(x, y, range)
@@ -800,6 +804,7 @@ function Enemy(x, y, range)
     this.update = function()
     {
         this.currentX += this.inc;
+
         //make enemy move
         if(this.currentX >= this.x + this.range)
         {
@@ -815,7 +820,9 @@ function Enemy(x, y, range)
     this.draw = function()
     {
         this.update();
-        fill(255,0,0)
+
+        fill(255,0,0);
+
         ellipse(this.currentX, this.y, 20, 20);
     }
 
@@ -829,4 +836,5 @@ function Enemy(x, y, range)
         }
         return false;
     }
+
 }
