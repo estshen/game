@@ -38,7 +38,7 @@ var jumpSound;
 var fallSound;
 var coinSound;
 var flagpoleSound;
-// var overSound;
+var overSound;
 var enemySound;
 
 var backgroundMusic;
@@ -52,7 +52,7 @@ function preload()
     jumpSound.setVolume(0.5);
 
     fallSound = loadSound('assets/fall.mp3');
-    fallSound.setVolume(0.3);
+    fallSound.setVolume(0.4);
 
     coinSound = loadSound('assets/coin.wav');
 
@@ -60,9 +60,11 @@ function preload()
 
     enemySound = loadSound('assets/enemy.wav');
 
-    // overSound = loadSound('assets/game-over.wav');
+    overSound = loadSound('assets/game-over.wav');
+    overSound.setVolume(0.1);
 
-    backgroundMusic = loadSound('assets/background.mp3');
+    // backgroundMusic = loadSound('assets/background.mp3');
+    // backgroundMusic.setVolume(0.5);
 
 
 }
@@ -75,8 +77,13 @@ function setup()
     floorPos_y = height * 3/4;
     lives = 3;
     startGame();  
+
 }
 
+function backgroundMusic()
+{
+    backgroundMusic.loop();
+}
 
 function draw()
 {
@@ -178,6 +185,8 @@ function draw()
     
     if(lives < 1)
     {
+        // overSound.playMode('restart');
+        overSound.play();
         fill(231, 111, 81);
         textSize(25);
         text("Game over. Press space to continue.", width/2, height/2);
@@ -265,6 +274,7 @@ function draw()
     if(isPlummeting)
     {
         gameChar_y += 10;
+        fallSound.playMode('restart');
         fallSound.play();
 
     }
@@ -366,6 +376,14 @@ function keyReleased()
 
 function startGame()
 {
+    if(lives > 0)
+    {
+        backgroundMusic = loadSound('assets/background.mp3');
+        backgroundMusic.setVolume(0.5);
+    }
+    
+
+
 	gameChar_x = width/2;
 	gameChar_y = floorPos_y;
 
@@ -873,3 +891,4 @@ function Enemy(x, y, range)
     }
 
 }
+
