@@ -87,10 +87,10 @@ function backgroundMusic()
 
 function draw()
 {
-	background(100, 155, 255); // fill the sky blue
+	background(174, 197, 235); // fill the sky blue
 
 	noStroke();
-	fill(0,155,0);
+	fill(112, 169, 161);
 	rect(0, floorPos_y, width, height/4); // draw some green ground
 
     push();
@@ -663,7 +663,7 @@ function drawTrees()
         fill(120,100,40);
         rect(trees_x[i],floorPos_y - 150,60,150);
         //green branches
-        fill(0,155,0);
+        fill(104, 216, 214);
         triangle(
                 trees_x[i] - 50, floorPos_y - 100, 
                 trees_x[i] +30, floorPos_y - 200, 
@@ -690,7 +690,7 @@ function drawCanyon(t_canyon)
         //canyon right part
         rect(t_canyon.x_pos + t_canyon.width + 100, t_canyon.y_pos, 10, t_canyon.height)
         //canyon middle part
-        fill(100, 155, 255)
+        fill(174, 197, 235)
         rect(t_canyon.x_pos + 110, t_canyon.y_pos, t_canyon.width - 10, t_canyon.height)
             
         //canyon bottom
@@ -822,7 +822,8 @@ function createPlatforms(x, y, length)
         length: length,
         draw: function()
         {
-            fill(255,0,255);
+            fill(255, 203, 105);
+            noStroke();
             rect(this.x, this.y, this.length, 20);
         },
         checkContact: function(gc_x, gc_y)
@@ -873,9 +874,22 @@ function Enemy(x, y, range)
     {
         this.update();
 
-        fill(255,0,0);
+        fill(215, 185, 213);
+        noStroke();
+        rect(this.currentX, this.y - 30, 50, 30, 10);
+        rect(this.currentX + 10, this.y - 40, 5, 15, 10);
+        rect(this.currentX + 35, this.y - 40, 5, 15, 10);
+        //enemy leg
+        rect(this.currentX + 8, this.y, 36, 10, 10);
+        //enemy eye
+        fill(255,255,255);
+        rect(this.currentX + 16, this.y - 25, 20, 20, 1);
+        fill(100, 166, 189)
+        ellipse(this.currentX + 25, this.y - 15, 10, 10);
 
-        ellipse(this.currentX, this.y, 20, 20);
+
+
+
     }
 
     this.checkContact = function(gc_x, gc_y)
