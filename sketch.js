@@ -467,6 +467,13 @@ function startGame()
 
     enemies = [];
     enemies.push(new Enemy(100, floorPos_y - 10, 100, 100));
+    enemies.push(new Enemy(700, floorPos_y - 10, 100, 100));
+    enemies.push(new Enemy(1100, floorPos_y - 10, 100, 100));
+    enemies.push(new Enemy(1700, floorPos_y - 10, 100, 100));
+    enemies.push(new Enemy(2400, floorPos_y - 10, 100, 100));
+    enemies.push(new Enemy(3000, floorPos_y - 10, 100, 100));
+    enemies.push(new Enemy(3700, floorPos_y - 10, 100, 100));
+
 }
 
 
