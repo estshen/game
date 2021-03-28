@@ -56,17 +56,15 @@ function preload()
 
     coinSound = loadSound('assets/coin.wav');
 
-    flagpoleSound = loadSound('assets/flagpole.wav');
+    flagpoleSound = loadSound('assets/flagpole.mp3');
 
     enemySound = loadSound('assets/enemy.wav');
 
     overSound = loadSound('assets/game-over.wav');
     overSound.setVolume(0.1);
 
-    // backgroundMusic = loadSound('assets/background.mp3');
-    // backgroundMusic.setVolume(0.5);
-
-
+    backgroundMusic = loadSound('assets/background.mp3');
+    backgroundMusic.setVolume(0.5);
 }
 
 
@@ -78,12 +76,14 @@ function setup()
     lives = 3;
     startGame();  
 
+    backgroundMusic.loop();
+
 }
 
-function backgroundMusic()
-{
-    backgroundMusic.loop();
-}
+// function backgroundMusic()
+// {
+//     backgroundMusic.loop();
+// }
 
 function draw()
 {
@@ -161,6 +161,7 @@ function draw()
         if(isContact == true)
         {
             enemySound.play();
+            lives -= 1;
 
             if(lives > 0)
             {
@@ -376,15 +377,7 @@ function keyReleased()
 
 function startGame()
 {
-    if(lives > 0)
-    {
-        backgroundMusic = loadSound('assets/background.mp3');
-        backgroundMusic.setVolume(0.5);
-    }
-    
-
-
-	gameChar_x = width/2;
+ 	gameChar_x = width/2;
 	gameChar_y = floorPos_y;
 
 	// Variable to control the background scrolling.
