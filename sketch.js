@@ -453,7 +453,7 @@ function startGame()
     ];
     
     platforms = [];
-    platforms.push(createPlatforms(100, floorPos_y - 85, 90));
+    platforms.push(createPlatforms(150, floorPos_y - 85, 90));
     platforms.push(createPlatforms(500, floorPos_y - 100, 100));
     platforms.push(createPlatforms(1250, floorPos_y - 100, 100));
     platforms.push(createPlatforms(1750, floorPos_y - 95, 100));
@@ -836,9 +836,16 @@ function createPlatforms(x, y, length)
         length: length,
         draw: function()
         {
-            fill(255, 203, 105);
+            //outer rect
+            fill(255, 203, 105)
             noStroke();
-            rect(this.x, this.y, this.length, 20);
+            rect(this.x - 7, this.y - 5, this.length + 20, 30, 5);
+            //inner rect
+            fill(155, 155, 122);
+            noStroke();
+            rect(this.x, this.y, this.length + 5, 20, 5);
+
+
         },
         checkContact: function(gc_x, gc_y)
         {
