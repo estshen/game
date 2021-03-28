@@ -633,6 +633,7 @@ function drawClouds()
                 clouds[i].scale * 60,
                 clouds[i].scale * 60);
     }
+
 }
 
 
@@ -753,15 +754,21 @@ function renderFlagpole()
     
     //flag
     noStroke();
-    fill(255, 173, 173)
+    fill(233, 175, 163)
 
     if(flagpole.isReached) 
     {
-        rect(flagpole.x_pos, floorPos_y - 250, 50, 50)
+        rect(flagpole.x_pos, floorPos_y - 250, 50, 50);
+        fill(143, 45, 86);
+        rect(flagpole.x_pos + 12, floorPos_y - 240, 25, 25);
+
     }
     else
     {
         rect(flagpole.x_pos, floorPos_y - 50, 50, 50)
+        fill(143, 45, 86);
+        rect(flagpole.x_pos + 12, floorPos_y - 35, 25, 25);
+        
     }
         
     pop();
