@@ -67,7 +67,6 @@ function preload()
     backgroundMusic.setVolume(0.5);
 }
 
-
 function setup()
 {
 	createCanvas(1024, 576);
@@ -79,11 +78,6 @@ function setup()
     backgroundMusic.loop();
 
 }
-
-// function backgroundMusic()
-// {
-//     backgroundMusic.loop();
-// }
 
 function draw()
 {
@@ -126,15 +120,6 @@ function draw()
             drawCollectable(collectables[i]);
             checkCollectable(collectables[i]);
         }
-//        if(collectables[i].isFound == false)
-//        {
-//            drawCollectable(collectables[i]);
-//            checkCollectable(collectables[i]);
-//        }
-//        else if (collectables[i].isFound == true)
-//        {
-//            
-//        }
     }
 
     //Draw platforms.
@@ -146,7 +131,6 @@ function draw()
         
 
     renderFlagpole();
-
 
 
     //Draw enemies
@@ -172,15 +156,12 @@ function draw()
         }
     }
 
-    
     pop();
-
 
 
 	// Draw game character.
 	
 	drawGameChar();
-    
     
     // Draw "game over" when gameChar dies
     
@@ -192,7 +173,6 @@ function draw()
         textSize(25);
         text("Game over. Press space to continue.", width/2, height/2);
         return;
-
     }
     
     // Draw "level complete" when the flagpole is reached
@@ -221,7 +201,6 @@ function draw()
 
 
     
-
 	// Logic to make the game character move or the background scroll.
     
 	if(isLeft)
@@ -279,18 +258,6 @@ function draw()
         fallSound.play();
 
     }
-    // if(isFalling == true && gameChar_y < floorPos_y)
-    // {
-    //     gameChar_y -= 5 ;
-    // }
-    // else if(isFalling == false && gameChar_y < floorPos_y)
-    // {
-    //     gameChar_y += 10;
-    // }
-    
-
-
-
 
     // Check if gameChar reached the flagpole
     
@@ -466,7 +433,6 @@ function startGame()
     enemies.push(new Enemy(2400, floorPos_y - 10, 100, 100));
     enemies.push(new Enemy(3000, floorPos_y - 10, 100, 100));
     enemies.push(new Enemy(3700, floorPos_y - 10, 100, 100));
-
 }
 
 
@@ -837,8 +803,6 @@ function createPlatforms(x, y, length)
             fill(155, 155, 122);
             noStroke();
             rect(this.x, this.y, this.length + 5, 20, 5);
-
-
         },
         checkContact: function(gc_x, gc_y)
         {
@@ -900,10 +864,6 @@ function Enemy(x, y, range)
         rect(this.currentX + 16, this.y - 25, 20, 20, 1);
         fill(100, 166, 189)
         ellipse(this.currentX + 25, this.y - 15, 10, 10);
-
-
-
-
     }
 
     this.checkContact = function(gc_x, gc_y)
@@ -919,4 +879,3 @@ function Enemy(x, y, range)
     }
 
 }
-
