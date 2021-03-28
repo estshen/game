@@ -797,8 +797,8 @@ function checkFlagpole()
 
 function drawCollectable(t_collectable)
 {
-        fill(240, 113, 103);
-        stroke(109, 104, 117);
+        fill(204, 139, 134);
+        stroke(249, 234, 225);
         strokeWeight(1);
         //big circle
         ellipse(t_collectable.x_pos, t_collectable.y_pos, t_collectable.size);
@@ -808,7 +808,7 @@ function drawCollectable(t_collectable)
         textFont('arial');
         textSize(t_collectable.size*0.5);
         textStyle(BOLD);
-        fill(109, 104, 117);
+        fill(249, 234, 225);
         text('B', t_collectable.x_pos - 9*t_collectable.size/50, t_collectable.y_pos + 8*t_collectable.size/50);
 }
 
