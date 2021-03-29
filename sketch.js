@@ -14,9 +14,17 @@
 
 
 // Extension 2
+//Secondly, I chose to create enemies for my game. I watched tutorial videos and learnt how to make the enemy move forward and back the other way. I also improved the graphics with my enemy, changed it into a more pleasant colour scheme, and made it look funnier and more evil.
+
+//The bits I found difficult: 
+//I found it hard to code the “function Enemy” part, as it was the first time I was learning to use construction when building my enemies. 
+//I found it challenging to make my game consistent with counting the character’s lives as well. 
+//At first I only decrease the lives when the character falls off the canyon, but then I realised it should lose lives when in contact with the enemies. Therefore, in order to make the game more engaging, I added “lives -= 1” when checking if the character touches the enemy.
 
 
-
+//The skills I learnt/practised by implementing it: 
+//I learnt how to correctly make my enemies move back and forth in a loop by implementing “this.x, this.y and this.range” properties. 
+//In addition, I practised increment and decrement operators in changing the enemies’ positions. 
 
 
 
@@ -840,8 +848,6 @@ function createPlatforms(x, y, length)
         }
     }
     return p;
-
-  
 }
 
 function Enemy(x, y, range)
@@ -851,7 +857,7 @@ function Enemy(x, y, range)
     this.range = range;
 
     this.currentX = x;
-    //inc is increment
+    //inc: increment
     this.inc = 1;
 
     this.update = function()
@@ -895,9 +901,7 @@ function Enemy(x, y, range)
         if(d < 20)
         {
             return true;
-
         }
         return false;
     }
-
 }
