@@ -1,30 +1,31 @@
-// Extension 1
+// ----- Extension 1 -----
 // My first extension is adding  sound. I found stylish sounds from freesound.org and implemented into my game project. 
-//My game make noises when the character jumps, falls, collects coins, reaches the flagpole, makes contact with the enemy, and runs out of lives. The game has a cheering background music as well. 
+// My game make noises when the character jumps, falls, collects coins, reaches the flagpole, makes contact with the enemy, and runs out of lives. The game has a cheering background music as well. 
 
-//The bits I found difficult: 
-//I find it difficult to make the background music on loop as the file only lasts for 16 seconds, and I wanted to start over when the game character runs out of lives. 
-//I wasn’t sure where I should put “backgroundMusic.loop();”, and wondered if I should create a new function to make it load or if I could put it in “function setup”.
-//So I first looked up my problem in our slack channel, and my classmates gave useful advice and shared resources I could refer to.
+// The bits I found difficult: 
+// I find it difficult to make the background music on loop as the file only lasts for 16 seconds, and I wanted to start over when the game character runs out of lives. 
+// I wasn’t sure where I should put “backgroundMusic.loop();”, and wondered if I should create a new function to make it load or if I could put it in “function setup”.
+// So I first looked up my problem in our slack channel, and my classmates gave useful advice and shared resources I could refer to.
 
-//The skills I learnt/practised by implementing it: 
-//I learnt more p5.js sound properties, for example, I implemented “restart” mode for the falling sound, so that the falling sound doesn’t overlap. 
-//I also learnt “.play()” and “.loop()”, and realised I need to initialise them in “function preload” so that it wouldn’t take forever to load the sounds comparing to putting them in “function setup”
-
-
-
-// Extension 2
-//Secondly, I chose to create enemies for my game. I watched tutorial videos and learnt how to make the enemy move forward and back the other way. I also improved the graphics with my enemy, changed it into a more pleasant colour scheme, and made it look funnier and more evil.
-
-//The bits I found difficult: 
-//I found it hard to code the “function Enemy” part, as it was the first time I was learning to use construction when building my enemies. 
-//I found it challenging to make my game consistent with counting the character’s lives as well. 
-//At first I only decrease the lives when the character falls off the canyon, but then I realised it should lose lives when in contact with the enemies. Therefore, in order to make the game more engaging, I added “lives -= 1” when checking if the character touches the enemy.
+// The skills I learnt/practised by implementing it: 
+// I learnt more p5.js sound properties, for example, I implemented “restart” mode for the falling sound, so that the falling sound doesn’t overlap. 
+// I also learnt “.play()” and “.loop()”, and realised I need to initialise them in “function preload” so that it wouldn’t take forever to load the sounds comparing to putting them in “function setup”
 
 
-//The skills I learnt/practised by implementing it: 
-//I learnt how to correctly make my enemies move back and forth in a loop by implementing “this.x, this.y and this.range” properties. 
-//In addition, I practised increment and decrement operators in changing the enemies’ positions. 
+
+// ----- Extension 2 -----
+// My second extension is creating enemies for my game. I watched tutorial videos and learnt how to make the enemy move forward and back the other way. 
+// I also improved the graphics with my enemy, changed it into a more pleasant colour scheme, and made it look funnier and more evil.
+
+// The bits I found difficult: 
+// I found it hard to code the “function Enemy” part, as it was the first time I was learning to use construction when building my enemies. 
+// I found it challenging to make my game consistent with counting the character’s lives as well. 
+// At first I only decrease the lives when the character falls off the canyon, but then I realised it should lose lives when in contact with the enemies. Therefore, in order to make the game more engaging, I added “lives -= 1” when checking if the character touches the enemy.
+
+
+// The skills I learnt/practised by implementing it: 
+// I learnt how to correctly make my enemies move back and forth in a loop by implementing “this.x, this.y and this.range” properties. 
+// In addition, I practised increment and decrement operators in changing the enemies’ positions. 
 
 
 
