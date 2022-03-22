@@ -230,6 +230,16 @@ function draw()
     textSize(20);
     text("Lives: " + lives, 140, 30);
 
+    //Draw instructions
+
+    fill(255);
+    noStroke();
+    textSize(15);
+    text("Jump [spacebar] ", 20, 60);
+    text("Left   [<-] ", 20, 90);
+    text("Right [->] ", 20, 120);
+
+
 
     
 	// Logic to make the game character move or the background scroll.
