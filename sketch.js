@@ -235,9 +235,9 @@ function draw()
     fill(255);
     noStroke();
     textSize(15);
-    text("Jump [spacebar] ", 20, 60);
-    text("Left   [<-] ", 20, 90);
-    text("Right [->] ", 20, 120);
+    text("Jump: spacebar", 20, 60);
+    text("Left: <- ", 20, 90);
+    text("Right: -> ", 20, 120);
 
 
 
